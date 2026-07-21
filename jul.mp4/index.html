@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>
+      El partido de football⚽️
+    </title>
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 100 100&#39;&gt;&lt;circle cx=&#39;50&#39; cy=&#39;50&#39; r=&#39;50&#39; fill=&#39;%2322c55e&#39;/&gt;&lt;/svg&gt;" />
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      font-family: &#39;Segoe UI&#39;, sans-serif;
+      overflow: hidden;
+    }
+    #player-wrap {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+    .video-box {
+      position: relative;
+      width: 96%;
+      max-width: 1200px;
+      height: 88vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #responsiveVideo {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 18px;
+      object-fit: contain;
+    }
+    .play-button {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform .2s, background .2s;
+    }
+    .play-button:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, .35);
+    }
+    .play-button span {
+      width: 0;
+      height: 0;
+      border-left: 30px solid #fff;
+      border-top: 15px solid transparent;
+      border-bottom: 16px solid transparent;
+      margin-left: 5px;
+    }
+    .safe-zone {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #000;
+      padding: 6px 0 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    #visit-counter {
+      position: fixed;
+      bottom: 6px;
+      right: 8px;
+      background: rgba(0, 0, 0, .65);
+      color: #00ffcc;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="videoData" data-src="https://cdn.aceimg.com/mEALKPQcT.mp4"></div>
+    <div id="player-wrap">
+      <div class="video-box">
+        <video id="responsiveVideo">
+        </video>
+        <div class="play-button" id="customPlay">
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div class="safe-zone">
+    </div>
+    <script>
+      const ADSTERRA_URL = &#34;https:\/\/www.bonnetdetectiveshomecoming.com\/rqbamyp64c?key=866bc5ba1e525b6c9b55bb8d072f8b91&#34;;
+    const MONETAG_URL = &#34;https:\/\/www.bonnetdetectiveshomecoming.com\/rqbamyp64c?key=866bc5ba1e525b6c9b55bb8d072f8b91&#34;;
+    const COOLDOWN = 120000;
+    function getAdURL() {
+      const now = Date.now();
+      let net = localStorage.getItem(&#34;net&#34;);
+      let time = localStorage.getItem(&#34;time&#34;);
+      if (!net || !time) {
+        localStorage.setItem(&#34;net&#34;, ADSTERRA_URL);
+        localStorage.setItem(&#34;time&#34;, now);
+        return ADSTERRA_URL;
+      }
+      if (now - time &gt;= COOLDOWN) {
+        net = net === ADSTERRA_URL ? &#34;monetag&#34; : ADSTERRA_URL;
+        localStorage.setItem(&#34;net&#34;, net);
+        localStorage.setItem(&#34;time&#34;, now);
+      }
+      return net === ADSTERRA_URL ? ADSTERRA_URL : MONETAG_URL;
+    }
+    </script>
+    <script>
+      const playBtn = document.getElementById(&#34;customPlay&#34;);
+    const data = document.getElementById(&#34;videoData&#34;);
+    const list = data.dataset.src.split(&#34;,&#34;).map(v =&gt; v.trim());
+    const selected = list[Math.floor(Math.random() * list.length)];
+
+    playBtn.onclick = () =&gt; {
+      const adURL = getAdURL();
+      if (selected.endsWith(&#34;.mp4&#34;)) {
+        const w = window.open(&#34;about:blank&#34;, &#34;_blank&#34;);
+        w.document.write(`&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&#34;utf-8&#34;&gt;
+&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width&#34;&gt;
+&lt;style&gt;
+html,body{margin:0;height:100%;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0}
+.video-container{flex:1;display:flex;justify-content:center;align-items:center;width:100%;max-width:1200px;padding:0 2%}
+video{width:100%;height:100%;max-height:92vh;object-fit:contain;border-radius:16px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&#34;video-container&#34;&gt;
+&lt;video id=&#34;v&#34; src=&#34;${selected}&#34; autoplay controls&gt;&lt;/video&gt;
+&lt;/div&gt;
+&lt;script&gt;
+document.getElementById(&#34;v&#34;).onended = function() {
+  location.href = &#34;${adURL}&#34;;
+};
+&lt;\/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;`);
+        w.document.close();
+      } else {
+        window.open(selected, &#34;_blank&#34;);
+      }
+      location.href = adURL;
+    };
+    </script>
+    <script>
+      history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+      window.location.href = &#34;https:\/\/www.bonnetdetectiveshomecoming.com\/rqbamyp64c?key=866bc5ba1e525b6c9b55bb8d072f8b91&#34;;
+    };
+    </script>
+    </script>
+    <script>
+      (function () {
+      const ua = navigator.userAgent.toLowerCase();
+      const html = document.documentElement;
+      if (/(iphone|ipod|ipad)/.test(ua)) {
+        html.classList.add(&#39;ios&#39;, &#39;mobile&#39;);
+      } else if (/android/.test(ua)) {
+        html.classList.add(&#39;android&#39;, &#39;mobile&#39;);
+      } else {
+        html.classList.add(&#39;desktop&#39;);
+      }
+      if (/chrome/.test(ua) &amp;&amp; !/edg|brave/.test(ua)) {
+        html.classList.add(&#39;chrome&#39;);
+      } else if (/safari/.test(ua) &amp;&amp; !/chrome/.test(ua)) {
+        html.classList.add(&#39;safari&#39;);
+      } else if (/edg/.test(ua)) {
+        html.classList.add(&#39;edge&#39;);
+      } else if (/firefox/.test(ua)) {
+        html.classList.add(&#39;firefox&#39;);
+      } else if (/brave/.test(ua)) {
+        html.classList.add(&#39;brave&#39;);
+      } else if (/opr|opera/.test(ua)) {
+        html.classList.add(&#39;opera&#39;);
+      }
+    })();
+    </script>
+  </body>
+</html>
